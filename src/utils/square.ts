@@ -1,4 +1,4 @@
-import { Square as SquareType, Move } from "chess.js/src/chess";
+import { Move, Square as SquareType } from "chess.js/src/chess";
 
 const get_square_by_indeces = (
   rowIndex: number,

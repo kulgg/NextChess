@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import Square from "./Square";
 import { Chess } from "chess.js";
 import {
-  PieceSymbol,
-  Square as SquareType,
   Color,
   Move,
+  PieceSymbol,
+  Square as SquareType,
 } from "chess.js/src/chess";
+import { useState } from "react";
 import {
   get_square_by_indeces,
   get_target_move,
   is_square_possible_move_target,
 } from "../utils/square";
+import Square from "./Square";
 
 const game = new Chess();
 

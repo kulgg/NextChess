@@ -1,4 +1,4 @@
-import { PieceSymbol, Color } from "chess.js/src/chess";
+import { Color, PieceSymbol } from "chess.js/src/chess";
 
 export type PieceType = {
   type: PieceSymbol;
@@ -20,13 +20,13 @@ const Square = ({
   let inlineStyle = {};
 
   if (piece) {
-    classString += " bg-cover";
+    classString = `${classString} bg-cover`;
     inlineStyle = {
       backgroundImage: `url('/assets/${piece.color}${piece.type}.svg')`,
     };
   }
 
-  classString += highlighted ? " opacity-60" : "";
+  classString = highlighted ? `${classString} opacity-60` : classString;
 
   return (
     <div
