@@ -1,14 +1,20 @@
 import { PieceSymbol, Color } from "chess.js/src/chess";
 
+export type PieceType = {
+  type: PieceSymbol;
+  color: Color;
+} | null;
+
 const Square = ({
   piece,
   isDark,
+  handleClick,
+  highlighted,
 }: {
-  piece?: {
-    type: PieceSymbol;
-    color: Color;
-  };
+  piece: PieceType;
   isDark: boolean;
+  handleClick: () => void;
+  highlighted: boolean;
 }): JSX.Element => {
   let classString = isDark ? "bg-stone-200" : "bg-lime-700";
   let inlineStyle = {};
@@ -20,9 +26,15 @@ const Square = ({
     };
   }
 
-  console.log(classString);
+  classString += highlighted ? " opacity-60" : "";
 
-  return <div className={classString} style={inlineStyle}></div>;
+  return (
+    <div
+      className={classString}
+      style={inlineStyle}
+      onClick={handleClick}
+    ></div>
+  );
 };
 
 export default Square;
