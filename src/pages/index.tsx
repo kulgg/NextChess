@@ -11,12 +11,12 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className="px-3 py-2">
+      <header className="px-1 py-2 sm:px-3">
         <h1 className="text-2xl font-semibold">
           <a href="/">NextChess</a>
         </h1>
       </header>
-      <main className="flex justify-center">
+      <main className="flex justify-center py-2">
         <Board />
       </main>
     </div>

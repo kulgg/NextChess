@@ -1,5 +1,6 @@
 import { url } from "inspector";
 import React from "react";
+import Square from "./Square";
 
 const Board = (): JSX.Element => {
   const game = [
@@ -13,9 +14,9 @@ const Board = (): JSX.Element => {
       {game.map((x, i) => {
         const alternatingRow = Math.floor(i / 8) % 2;
         return i % 2 == alternatingRow ? (
-          <div className="bg-stone-200"></div>
+          <Square isDark={false} />
         ) : (
-          <div className="bg-lime-700"></div>
+          <Square isDark={true} />
         );
       })}
     </div>
