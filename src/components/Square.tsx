@@ -1,16 +1,20 @@
-import React from "react";
-import Piece from "./Piece";
+import { PieceSymbol, Color } from "chess.js/src/chess";
 
 const Square = ({
   piece,
   isDark,
 }: {
-  piece?: JSX.Element;
+  piece?: {
+    type: PieceSymbol;
+    color: Color;
+  };
   isDark: boolean;
 }): JSX.Element => {
-  const classString = isDark ? "bg-stone-200" : "bg-lime-700";
+  const classString = isDark
+    ? "bg-stone-200 bg-knight bg-cover"
+    : "bg-lime-700 bg-knight bg-cover";
 
-  return <div className={classString}>{piece}</div>;
+  return <div className={classString}></div>;
 };
 
 export default Square;
