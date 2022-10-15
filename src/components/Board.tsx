@@ -21,14 +21,16 @@ const Board = (): JSX.Element => {
       {board.map((row, rowNumber) => {
         return row.map((piece, i) => {
           const alternatingRow = rowNumber % 2;
+          const key = `${rowNumber}${i}`;
 
           return piece ? (
             <Square
               isDark={i % 2 == alternatingRow}
               piece={{ type: piece.type, color: piece.color }}
+              key={key}
             />
           ) : (
-            <Square isDark={i % 2 == alternatingRow} />
+            <Square isDark={i % 2 == alternatingRow} key={key} />
           );
         });
       })}

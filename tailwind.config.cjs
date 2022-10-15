@@ -2,12 +2,7 @@
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {
-      backgroundImage: {
-        knight:
-          "url('https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/bB.svg')",
-      },
-    },
+    extend: {},
     container: {
       center: true,
       screens: {

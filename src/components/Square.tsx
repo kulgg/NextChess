@@ -10,11 +10,19 @@ const Square = ({
   };
   isDark: boolean;
 }): JSX.Element => {
-  const classString = isDark
-    ? "bg-stone-200 bg-knight bg-cover"
-    : "bg-lime-700 bg-knight bg-cover";
+  let classString = isDark ? "bg-stone-200" : "bg-lime-700";
+  let inlineStyle = {};
 
-  return <div className={classString}></div>;
+  if (piece) {
+    classString += " bg-cover";
+    inlineStyle = {
+      backgroundImage: `url('/assets/${piece.color}${piece.type}.svg')`,
+    };
+  }
+
+  console.log(classString);
+
+  return <div className={classString} style={inlineStyle}></div>;
 };
 
 export default Square;
