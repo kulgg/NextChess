@@ -1,16 +1,7 @@
-import axios from "axios";
 import { Chess } from "chess.js";
-import {
-  Color,
-  Move,
-  PieceSymbol,
-  Square as SquareType,
-} from "chess.js/src/chess";
-import { Dispatch, SetStateAction, useState } from "react";
-import { moveMessagePortToContext } from "worker_threads";
-import { GameEvent } from "../pages/api/pusher";
+import { Color, Move, Square as SquareType } from "chess.js/src/chess";
+import { useState } from "react";
 import { BoardType } from "../pages/game/[id]/[c]";
-import invertBoard from "../utils/board";
 import {
   get_square_by_indeces,
   get_target_move,

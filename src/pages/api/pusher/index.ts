@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { env } from "../../../env/server.mjs";
-import Pusher from "pusher";
 import { Color } from "chess.js/src/chess.js";
+import { NextApiRequest, NextApiResponse } from "next";
+import Pusher from "pusher";
+import { env } from "../../../env/server.mjs";
 
 const pusher = new Pusher({
   appId: env.PUSHER_APP_ID,

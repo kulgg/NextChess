@@ -1,10 +1,8 @@
-import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { GiPodiumWinner, GiPodiumSecond } from "react-icons/gi";
-import { useRouter } from "next/router";
-import { createGame } from "../pages";
 import { nanoid } from "nanoid";
+import { useRouter } from "next/router";
+import { Fragment, useRef, useState } from "react";
+import { GiPodiumSecond, GiPodiumWinner } from "react-icons/gi";
 
 export default function GameFinishedModal({ result }: { result: string }) {
   const [open, setOpen] = useState(true);

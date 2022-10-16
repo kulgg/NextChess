@@ -1,11 +1,6 @@
-import { SyntheticEvent, useEffect, useState } from "react";
-import Pusher from "pusher-js";
-import axios from "axios";
-import { GameEvent } from "./api/pusher";
-import { NextPage } from "next";
-import { env } from "../env/client.mjs";
-import { NextRouter, useRouter } from "next/router";
 import { nanoid } from "nanoid";
+import { NextPage } from "next";
+import { NextRouter, useRouter } from "next/router";
 
 export function createGame(router: NextRouter) {
   router.push(`/game/${nanoid()}/${Math.random() <= 0.5 ? "w" : "b"}`);

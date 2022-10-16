@@ -1,5 +1,3 @@
-import React from "react";
-
 function WaitForPlayer({ inviteUrl }: { inviteUrl: string }) {
   return (
     <div className="flex h-96 flex-col items-center justify-center text-lg">
