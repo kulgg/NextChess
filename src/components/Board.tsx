@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Chess } from "chess.js";
 import {
   Color,
@@ -6,6 +7,9 @@ import {
   Square as SquareType,
 } from "chess.js/src/chess";
 import { Dispatch, SetStateAction, useState } from "react";
+import { moveMessagePortToContext } from "worker_threads";
+import { GameEvent } from "../pages/api/pusher";
+import { BoardType } from "../pages/game/[id]/[c]";
 import {
   get_square_by_indeces,
   get_target_move,
@@ -13,22 +17,23 @@ import {
 } from "../utils/square";
 import Square from "./Square";
 
-export type BoardType = ({
-  square: SquareType;
-  type: PieceSymbol;
-  color: Color;
-} | null)[][];
-
 const Board = ({
   game,
   setIsCheck,
   setIsGameOver,
+  color,
+  board,
+  setBoard,
+  postMove,
 }: {
   game: Chess;
   setIsCheck: Dispatch<SetStateAction<boolean>>;
   setIsGameOver: Dispatch<SetStateAction<boolean>>;
+  color: Color;
+  board: BoardType;
+  setBoard: Dispatch<SetStateAction<BoardType>>;
+  postMove: (move: string) => void;
 }): JSX.Element => {
-  const [board, setBoard] = useState<BoardType>(game.board());
   const [possibleMoves, setPossibleMoves] = useState<Move[]>([]);
   const [activePiece, setActivePiece] = useState<SquareType | null>(null);
 
@@ -36,15 +41,16 @@ const Board = ({
     if (isTarget) {
       setActivePiece(null);
       setPossibleMoves([]);
-      game.move(get_target_move(possibleMoves, square));
+      const moveSanString = get_target_move(possibleMoves, square);
+      game.move(moveSanString);
+      postMove(moveSanString);
       setBoard(game.board());
       setIsCheck(game.isCheck());
       setIsGameOver(game.isGameOver());
-      return;
+    } else {
+      setActivePiece(square);
+      setPossibleMoves(game.moves({ verbose: true, square: square }) as Move[]);
     }
-
-    setActivePiece(square);
-    setPossibleMoves(game.moves({ verbose: true, square: square }) as Move[]);
   };
 
   return (
@@ -63,7 +69,10 @@ const Board = ({
               isDark={colNumber % 2 == alternatingRow}
               piece={piece}
               key={square}
-              handleClick={() => handleSquareClick(square, isTarget)}
+              handleClick={() =>
+                (isTarget || piece?.color === color) &&
+                handleSquareClick(square, isTarget)
+              }
               highlighted={isTarget}
             />
           );
