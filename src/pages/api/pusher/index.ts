@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { env } from "../../../env/server.mjs";
 import Pusher from "pusher";
+import { Color } from "chess.js/src/chess.js";
 
 const pusher = new Pusher({
   appId: env.PUSHER_APP_ID,
@@ -12,7 +13,8 @@ const pusher = new Pusher({
 
 export type GameEvent = {
   gameId: string;
-  sender: "w" | "b";
+  gameEvent: "join" | "start" | "move";
+  sender: Color;
   message: string;
 };
 
@@ -20,9 +22,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { message, sender }: GameEvent = req.body;
+  const { message, sender, gameId, gameEvent }: GameEvent = req.body;
 
-  const response = await pusher.trigger("game", "game-event", {
+  const response = await pusher.trigger(gameId, gameEvent, {
+    gameId,
+    gameEvent,
     message,
     sender,
   });

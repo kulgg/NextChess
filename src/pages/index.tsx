@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       <button
         className="rounded-2xl border border-gray-300 py-1 px-2 text-xl"
         onClick={() => {
-          router.push(`/game/${nanoid()}`);
+          router.push(`/game/${nanoid()}/${Math.random() <= 0.5 ? "w" : "b"}`);
         }}
       >
         Create Game
