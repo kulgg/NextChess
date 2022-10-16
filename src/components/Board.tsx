@@ -10,6 +10,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { moveMessagePortToContext } from "worker_threads";
 import { GameEvent } from "../pages/api/pusher";
 import { BoardType } from "../pages/game/[id]/[c]";
+import invertBoard from "../utils/board";
 import {
   get_square_by_indeces,
   get_target_move,
@@ -19,19 +20,13 @@ import Square from "./Square";
 
 const Board = ({
   game,
-  setIsCheck,
-  setIsGameOver,
   color,
   board,
-  setBoard,
   postMove,
 }: {
   game: Chess;
-  setIsCheck: Dispatch<SetStateAction<boolean>>;
-  setIsGameOver: Dispatch<SetStateAction<boolean>>;
   color: Color;
   board: BoardType;
-  setBoard: Dispatch<SetStateAction<BoardType>>;
   postMove: (move: string) => void;
 }): JSX.Element => {
   const [possibleMoves, setPossibleMoves] = useState<Move[]>([]);

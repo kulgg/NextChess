@@ -70,7 +70,6 @@ const Game: React.FC<Props> = ({ gameId, color }) => {
     });
 
     channel.bind("move", function (data: GameEvent) {
-      console.log(data, "move");
       game.move(data.message);
       updateGameState();
     });
@@ -82,9 +81,7 @@ const Game: React.FC<Props> = ({ gameId, color }) => {
       gameId: gameId,
     };
     const timeout = setTimeout(() => {
-      axios
-        .post("/api/pusher", joinEvent)
-        .then((x) => console.log(x, "request"));
+      axios.post("/api/pusher", joinEvent);
     }, 500);
 
     return () => {
@@ -115,15 +112,7 @@ const Game: React.FC<Props> = ({ gameId, color }) => {
   return (
     <div>
       {isGameOver && <GameFinishedModal result={gameResult} />}
-      <Board
-        game={game}
-        setIsCheck={setIsCheck}
-        setIsGameOver={setIsGameOver}
-        color={color}
-        board={board}
-        setBoard={setBoard}
-        postMove={postMove}
-      />
+      <Board game={game} color={color} board={board} postMove={postMove} />
     </div>
   );
 };
