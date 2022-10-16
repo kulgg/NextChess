@@ -11,6 +11,7 @@ const pusher = new Pusher({
 });
 
 export type GameEvent = {
+  gameId: string;
   sender: "w" | "b";
   message: string;
 };

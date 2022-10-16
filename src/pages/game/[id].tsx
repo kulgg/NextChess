@@ -1,12 +1,15 @@
 import { Chess } from "chess.js";
-import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import { useState } from "react";
-import Board from "../components/Board";
-import Layout from "../layout/Layout";
+import Board from "../../components/Board";
 
 const game = new Chess();
 
-const Home: NextPage = () => {
+interface Props {
+  id: string;
+}
+
+const Game: React.FC<Props> = ({ id }) => {
   const [isCheck, setIsCheck] = useState(game.isCheck());
   const [isGameOver, setIsGameOver] = useState(game.isGameOver());
 
@@ -24,4 +27,15 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+const GamePage = () => {
+  const { query } = useRouter();
+  const { id } = query;
+
+  if (!id || typeof id !== "string") {
+    return <div>No ID</div>;
+  }
+
+  return <Game id={id} />;
+};
+
+export default GamePage;
