@@ -32,10 +32,6 @@ const Board = ({
   const [possibleMoves, setPossibleMoves] = useState<Move[]>([]);
   const [activePiece, setActivePiece] = useState<SquareType | null>(null);
 
-  if (game.isGameOver()) console.log("game over");
-  if (game.isCheck()) console.log("check");
-  if (game.isCheckmate()) console.log("checkmate");
-
   const handleSquareClick = (square: SquareType, isTarget: boolean) => {
     if (isTarget) {
       setActivePiece(null);
