@@ -5,7 +5,7 @@ import {
   PieceSymbol,
   Square as SquareType,
 } from "chess.js/src/chess";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   get_square_by_indeces,
   get_target_move,
@@ -13,15 +13,21 @@ import {
 } from "../utils/square";
 import Square from "./Square";
 
-const game = new Chess();
-
 export type BoardType = ({
   square: SquareType;
   type: PieceSymbol;
   color: Color;
 } | null)[][];
 
-const Board = (): JSX.Element => {
+const Board = ({
+  game,
+  setIsCheck,
+  setIsGameOver,
+}: {
+  game: Chess;
+  setIsCheck: Dispatch<SetStateAction<boolean>>;
+  setIsGameOver: Dispatch<SetStateAction<boolean>>;
+}): JSX.Element => {
   const [board, setBoard] = useState<BoardType>(game.board());
   const [possibleMoves, setPossibleMoves] = useState<Move[]>([]);
   const [activePiece, setActivePiece] = useState<SquareType | null>(null);
@@ -36,6 +42,8 @@ const Board = (): JSX.Element => {
       setPossibleMoves([]);
       game.move(get_target_move(possibleMoves, square));
       setBoard(game.board());
+      setIsCheck(game.isCheck());
+      setIsGameOver(game.isGameOver());
       return;
     }
 
