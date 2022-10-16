@@ -80,14 +80,12 @@ const Game: React.FC<Props> = ({ gameId, color }) => {
       sender: color,
       gameId: gameId,
     };
-    const timeout = setTimeout(() => {
-      game.reset();
-      axios.post("/api/pusher", joinEvent);
-    }, 500);
+
+    game.reset();
+    axios.post("/api/pusher", joinEvent);
 
     return () => {
       pusher.unsubscribe(gameId);
-      clearTimeout(timeout);
     };
   }, []);
 
