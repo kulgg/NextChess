@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import Pusher from "pusher-js";
 import { useEffect, useState } from "react";
 import Board from "../../../components/Board";
+import GameFinishedModal from "../../../components/GameFinishedModal";
+import WaitForPlayer from "../../../components/WaitForPlayer";
 import { env } from "../../../env/client.mjs";
 import { GameEvent } from "../../api/pusher";
 
@@ -91,44 +93,26 @@ const Game: React.FC<Props> = ({ gameId, color }) => {
 
   if (!isGameStarted) {
     return (
-      <div className="flex h-96 flex-col items-center justify-center text-lg">
-        <div
-          className="flex cursor-pointer flex-row items-center gap-1"
-          onClick={() =>
-            navigator.clipboard.writeText(
-              `${env.NEXT_PUBLIC_HOST}/game/${gameId}/${
-                color === "w" ? "b" : "w"
-              }`
-            )
-          }
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="h-5 w-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184"
-            />
-          </svg>
-          <div>Copy Invite Link</div>
-        </div>
-        <div className="my-5"></div>
-        <div className="text-xl">Waiting for other player...</div>
-      </div>
+      <WaitForPlayer
+        inviteUrl={`${env.NEXT_PUBLIC_HOST}/game/${gameId}/${
+          color === "w" ? "b" : "w"
+        }`}
+      />
     );
+  }
+
+  let gameResult = "";
+  if (isGameOver) {
+    if (game.isDraw()) {
+      gameResult = "Draw";
+    } else {
+      gameResult = game.turn() === "w" ? "Black won" : "White won";
+    }
   }
 
   return (
     <div>
-      <div className="my-4 h-6 text-xl">
-        {isGameOver ? "Check Mate" : isCheck ? "Check" : ""}
-      </div>
+      {isGameOver && <GameFinishedModal result={gameResult} />}
       <Board
         game={game}
         setIsCheck={setIsCheck}
