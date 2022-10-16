@@ -38,6 +38,12 @@ const Game: React.FC<Props> = ({ gameId, color }) => {
     axios.post("/api/pusher", moveEvent);
   }
 
+  function updateGameState() {
+    setBoard(game.board());
+    setIsCheck(game.isCheck());
+    setIsGameOver(game.isGameOver());
+  }
+
   useEffect(() => {
     const pusher = new Pusher(env.NEXT_PUBLIC_PUSHER_KEY, {
       cluster: "eu",
@@ -48,7 +54,7 @@ const Game: React.FC<Props> = ({ gameId, color }) => {
     channel.bind("start", function (data: GameEvent) {
       setIsGameStarted(true);
       game.load(data.message);
-      setBoard(game.board());
+      updateGameState();
     });
 
     channel.bind("join", function (data: GameEvent) {
@@ -65,12 +71,8 @@ const Game: React.FC<Props> = ({ gameId, color }) => {
 
     channel.bind("move", function (data: GameEvent) {
       console.log(data, "move");
-      if (data.sender !== color) {
-        game.move(data.message);
-        setBoard(game.board());
-        setIsCheck(game.isCheck());
-        setIsGameOver(game.isGameOver());
-      }
+      game.move(data.message);
+      updateGameState();
     });
 
     const joinEvent: GameEvent = {

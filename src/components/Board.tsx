@@ -42,11 +42,7 @@ const Board = ({
       setActivePiece(null);
       setPossibleMoves([]);
       const moveSanString = get_target_move(possibleMoves, square);
-      game.move(moveSanString);
       postMove(moveSanString);
-      setBoard(game.board());
-      setIsCheck(game.isCheck());
-      setIsGameOver(game.isGameOver());
     } else {
       setActivePiece(square);
       setPossibleMoves(game.moves({ verbose: true, square: square }) as Move[]);

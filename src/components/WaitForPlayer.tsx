@@ -1,11 +1,10 @@
 import React from "react";
-import { env } from "../../../env/client.mjs";
 
 function WaitForPlayer({ inviteUrl }: { inviteUrl: string }) {
   return (
     <div className="flex h-96 flex-col items-center justify-center text-lg">
       <div
-        className="flex cursor-pointer flex-row items-center gap-1"
+        className="flex cursor-pointer select-none flex-row items-center gap-1"
         onClick={() => navigator.clipboard.writeText(inviteUrl)}
       >
         <svg

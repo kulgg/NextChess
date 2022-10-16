@@ -8,11 +8,7 @@ import { NextRouter, useRouter } from "next/router";
 import { nanoid } from "nanoid";
 
 export function createGame(router: NextRouter) {
-  router
-    .push(`/game/${nanoid()}/${Math.random() <= 0.5 ? "w" : "b"}`, undefined, {
-      shallow: false,
-    })
-    .then(() => router.reload());
+  router.push(`/game/${nanoid()}/${Math.random() <= 0.5 ? "w" : "b"}`);
 }
 
 const Home: NextPage = () => {
@@ -22,7 +18,9 @@ const Home: NextPage = () => {
     <div className="flex h-96 flex-col items-center justify-center">
       <button
         className="rounded-2xl border border-gray-300 py-1 px-2 text-xl"
-        onClick={() => createGame(router)}
+        onClick={() =>
+          router.push(`/game/${nanoid()}/${Math.random() <= 0.5 ? "w" : "b"}`)
+        }
       >
         Create Game
       </button>
