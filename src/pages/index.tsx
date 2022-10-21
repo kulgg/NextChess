@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex h-96 flex-col items-center justify-center">
       <button
-        className="rounded-2xl border border-gray-300 py-1 px-2 text-xl"
+        className="inline-flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto sm:text-sm"
         onClick={() =>
           router.push(`/game/${nanoid()}/${Math.random() <= 0.5 ? "w" : "b"}`)
         }
