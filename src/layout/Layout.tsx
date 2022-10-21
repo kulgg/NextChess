@@ -7,7 +7,7 @@ export default function Layout({
   children: JSX.Element;
 }): JSX.Element {
   return (
-    <div className="">
+    <div className="flex h-screen flex-col justify-between">
       <Head>
         <title>NextChess</title>
         <meta name="description" content="Online Chess" />
@@ -19,6 +19,12 @@ export default function Layout({
         </h1>
       </header>
       <main className="container py-2">{children}</main>
+      <footer className="px-3 py-2 font-semibold">
+        by{" "}
+        <a href="https://kul.gg" className="text-blue-300 hover:text-blue-400">
+          kul.gg
+        </a>
+      </footer>
     </div>
   );
 }
