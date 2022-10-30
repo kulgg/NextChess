@@ -19,9 +19,9 @@ export default function Layout({
         </h1>
       </header>
       <main className="container py-2">{children}</main>
-      <footer className="px-3 py-2 font-semibold">
+      <footer className="text-md font-cabin px-3 py-2">
         by{" "}
-        <a href="https://kul.gg" className="text-blue-300 hover:text-blue-400">
+        <a className="text-blue-400 hover:text-blue-300" href="https://kul.gg">
           kul.gg
         </a>
       </footer>
